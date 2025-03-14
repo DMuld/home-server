@@ -15,3 +15,5 @@ Using specifc home internet brands doesn't allow for port forwarding, and even i
   -  `PROJECT_DIR` will need to be the path where `home-server` is installed.
   -  `RATHOLE_SERVICE_1_KEY` needs to be the same key that was placed in the `home-server/vps/server.toml` file under `[server.services.terraria]` then looking at the `token` variable. (This can be anything that you choose.)
   -  `PROXY_ADDR` will be the public ip or domain name for the VPS.
+2. Next you will need to initalize the terraria instance in docker. Do so by running `./setup.sh`. Once you see the text ": Server started", you can CTRL+C to stop the server.
+3. When you want to start the server from now on, just use the `docker-compose up -d` command in the `home-server/server` file. 
