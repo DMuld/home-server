@@ -1,7 +1,0 @@
-# client.toml
-[client]
-remote_addr = "<server_address>:2333" # The address of the server. The port must be the same with the port in `server.bind_addr`
-
-[client.services.terraria]
-token = "<private-key>" # Must be the same with the server to pass the validation
-local_addr = "127.0.0.1:7777" # The address of the service that needs to be forwarded
