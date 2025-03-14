@@ -8,7 +8,7 @@ services:
     environment:
       - "RUST_LOG=info"
       - "ADDRESS=${PROXY_ADDR}:2333"
-      - "SERVICE_TOKEN_1=${RATHOLE_KEY}"
+      - "SERVICE_TOKEN_1=${RATHOLE_SERVICE_1_KEY}"
       - "SERVICE_NAME_1=terraria"
       - "SERVICE_ADDRESS_1=10.5.0.3:7777"
     networks:
@@ -30,7 +30,7 @@ services:
     ports:
       - 7777:7777
     volumes:
-      - ${PROJECT_DIR}/terraria:/root/.local/share/Terraria/Worlds
+      - ${PROJECT_DIR}/server/terraria:/root/.local/share/Terraria/Worlds
 
 networks:
   docker-net:
