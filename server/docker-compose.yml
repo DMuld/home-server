@@ -1,0 +1,43 @@
+version: "3.9"
+ 
+services:
+  rathole-client:
+    image: archef2000/rathole:latest
+    restart: unless-stopped
+    command: client
+    environment:
+      - "RUST_LOG=info"
+      - "ADDRESS=${PROXY_ADDR}:2333"
+      - "SERVICE_TOKEN_1=${RATHOLE_KEY}"
+      - "SERVICE_NAME_1=terraria"
+      - "SERVICE_ADDRESS_1=10.5.0.3:7777"
+    networks:
+      docker-net:
+        ipv4_address: 10.5.0.2
+
+  terraria:
+    image: ryshe/terraria:latest
+    container_name: terraria
+    restart: unless-stopped
+    stdin_open: true # docker run -i
+    tty: true # docker run -t
+    environment:
+      - WORLD_FILENAME=world.wld
+      - CONFIGPATH=config.json
+    networks:
+      docker-net:
+        ipv4_address: 10.5.0.3
+    ports:
+      - 7777:7777
+    volumes:
+      - ${PROJECT_DIR}/terraria:/root/.local/share/Terraria/Worlds
+
+networks:
+  docker-net:
+    driver: bridge
+    driver_opts:
+      com.docker.network.bridge.host_binding_ipv4: "127.0.0.1"
+    ipam:
+      config:
+        - subnet: 10.5.0.0/16
+          gateway: 10.5.0.1
