@@ -8,7 +8,10 @@ Using specifc home internet brands doesn't allow for port forwarding, and even i
 
 ## Guide
 ### 1. VPS
-1. 
+1. Clone the repository. Then `cd vps`.
+2. Edit `vps/server.toml` where `token = ""`. Add a password, this will be used in Step 1 of the Server setup below.
+3. Run `sh setup.sh`.
+4. If you want to run this in the background, I would reccomend using "screen" to keep the background task running after closing the shell/ssh.
 
 ### 2. Server
 1. Go to `home-server/server/.env`. This file is where the docker configuration will occur. 
