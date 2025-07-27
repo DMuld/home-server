@@ -11,9 +11,43 @@ services:
       - "SERVICE_TOKEN_1=${RATHOLE_SERVICE_1_KEY}"
       - "SERVICE_NAME_1=terraria"
       - "SERVICE_ADDRESS_1=10.5.0.3:7777"
+      - "SERVICE_TOKEN_2=${RATHOLE_SERVICE_23_KEY}"
+      - "SERVICE_NAME_2=nginx_80"
+      - "SERVICE_ADDRESS_2=10.5.0.5:80"
+      - "SERVICE_TOKEN_3=${RATHOLE_SERVICE_23_KEY}"
+      - "SERVICE_NAME_3=nginx_443"
+      - "SERVICE_ADDRESS_3=10.5.0.5:443"
     networks:
       docker-net:
         ipv4_address: 10.5.0.2
+
+  nginx:
+    image: nginx:latest
+    container_name: nginx
+    ports:
+      - "80:80"    # HTTP
+      - "443:443"  # HTTPS
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./nginx-certs:/etc/nginx/certs:ro
+    depends_on:
+      - meme-drop
+    restart: always
+    networks:
+      docker-net:
+        ipv4_address: 10.5.0.5
+
+  meme-drop:
+    container_name: meme-drop 
+    restart: unless-stopped
+    build: 
+      context: ./meme-drop
+    image: host
+    ports:
+      - 3000:3000
+    networks:
+      docker-net:
+        ipv4_address: 10.5.0.10
 
   terraria:
     image: ryshe/terraria:latest
